@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Segoe UI'
   Font.Style = []
   Menu = MainMenu1
+  OnMouseWheel = FormMouseWheel
   TextHeight = 15
   object StatusBar1: TStatusBar
     Left = 0
@@ -132,17 +133,18 @@ object Form1: TForm1
     Height = 386
     Align = alLeft
     TabOrder = 3
-    ExplicitTop = 29
+    ExplicitLeft = 175
+    ExplicitTop = 40
     ExplicitHeight = 392
     object FilterComboBox1: TFilterComboBox
-      Left = 9
+      Left = 10
       Top = 6
       Width = 145
       Height = 23
       FileList = FileListBox1
       Filter = 
-        'All files (*.*)|*.*|JPEG (*.jpeg, *.jpg)|*.jpg, *.jpeg|PNG (*.pn' +
-        'g)|*.png|SVG (*.svg)|*.svg'
+        'All files (*.*)|*.*|JPG (*.jpg)|*.jpg|JPEG (*.jpeg)|*.jpeg|PNG (' +
+        '*.png)|*.png|SVG (*.svg)|*.svg'
       TabOrder = 0
     end
     object FileListBox1: TFileListBox
@@ -152,6 +154,7 @@ object Form1: TForm1
       Height = 351
       ItemHeight = 15
       TabOrder = 1
+      OnClick = FileListBox1Click
     end
   end
   object Panel3: TPanel
@@ -163,24 +166,24 @@ object Form1: TForm1
     Color = clAppWorkSpace
     ParentBackground = False
     TabOrder = 4
-    ExplicitLeft = 328
+    ExplicitLeft = 424
     ExplicitTop = 23
-    ExplicitHeight = 392
+    ExplicitWidth = 343
+    ExplicitHeight = 346
     object Image1: TImage
       Left = 1
       Top = 1
       Width = 437
       Height = 384
       Align = alClient
-      ExplicitLeft = 6
+      OnMouseDown = Image1MouseDown
+      OnMouseMove = Image1MouseMove
       ExplicitTop = 6
-      ExplicitWidth = 432
-      ExplicitHeight = 380
     end
   end
   object MainMenu1: TMainMenu
-    Left = 712
-    Top = 48
+    Left = 696
+    Top = 56
     object Plik1: TMenuItem
       Caption = 'File'
       object New1: TMenuItem
@@ -214,8 +217,8 @@ object Form1: TForm1
     DrawingStyle = dsTransparent
     Height = 32
     Width = 32
-    Left = 713
-    Top = 117
+    Left = 697
+    Top = 125
     Bitmap = {
       494C010108001800040020002000FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       00000000000036000000280000008000000060000000010020000000000000C0
@@ -1810,7 +1813,7 @@ object Form1: TForm1
   end
   object ActionList1: TActionList
     Images = ImageList1
-    Left = 713
+    Left = 697
     Top = 197
     object New: TAction
       Caption = 'New'
@@ -1824,6 +1827,7 @@ object Form1: TForm1
     object Save: TAction
       Caption = 'Save'
       ImageIndex = 2
+      OnExecute = SaveExecute
     end
     object Delete: TAction
       Caption = 'Delete'
@@ -1847,11 +1851,11 @@ object Form1: TForm1
     end
   end
   object OpenPictureDialog1: TOpenPictureDialog
-    Left = 713
+    Left = 697
     Top = 259
   end
   object SavePictureDialog1: TSavePictureDialog
-    Left = 713
+    Left = 697
     Top = 331
   end
 end

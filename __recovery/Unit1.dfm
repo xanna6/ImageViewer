@@ -11,6 +11,7 @@ object Form1: TForm1
   Font.Name = 'Segoe UI'
   Font.Style = []
   Menu = MainMenu1
+  OnMouseWheel = FormMouseWheel
   TextHeight = 15
   object StatusBar1: TStatusBar
     Left = 0
@@ -175,6 +176,9 @@ object Form1: TForm1
       Width = 437
       Height = 384
       Align = alClient
+      OnMouseDown = Image1MouseDown
+      OnMouseMove = Image1MouseMove
+      OnMouseUp = Image1MouseUp
       ExplicitTop = 6
     end
   end

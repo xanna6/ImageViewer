@@ -4,6 +4,18 @@
 #define Unit1H
 //---------------------------------------------------------------------------
 #include <System.Classes.hpp>
+#include <System.ImageList.hpp>
+#include <Vcl.ActnList.hpp>
+#include <Vcl.ComCtrls.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.Dialogs.hpp>
+#include <Vcl.ExtCtrls.hpp>
+#include <Vcl.ExtDlgs.hpp>
+#include <Vcl.FileCtrl.hpp>
+#include <Vcl.ImgList.hpp>
+#include <Vcl.Menus.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.ToolWin.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>
@@ -69,7 +81,20 @@ __published:	// IDE-managed Components
 	void __fastcall OpenExecute(TObject *Sender);
 	void __fastcall FileListBox1Click(TObject *Sender);
 	void __fastcall SaveExecute(TObject *Sender);
+	void __fastcall FormMouseWheel(TObject *Sender, TShiftState Shift, int WheelDelta,
+          TPoint &MousePos, bool &Handled);
+	void __fastcall Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y);
+	void __fastcall Image1MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
+	void __fastcall Image1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y);
+
+
+
+
 private:	TJPEGImage *JPEGImage1;
+			TRect lastRect; //ostatnio narysowany prostokąt
+			TPoint mousePos; //pozycja kursora po wciśnięciu lewego przycisku
 
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
