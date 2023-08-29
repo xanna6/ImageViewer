@@ -16,6 +16,9 @@
 #include <Vcl.ImgList.hpp>
 #include <Vcl.Menus.hpp>
 #include <Vcl.ToolWin.hpp>
+#include <Jpeg.hpp>
+#include <Vcl.Dialogs.hpp>
+#include <Vcl.ExtDlgs.hpp>
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -61,7 +64,13 @@ __published:	// IDE-managed Components
 	TMenuItem *RotateLeft1;
 	TMenuItem *RotateRight1;
 	TMenuItem *Cut1;
-private:	// User declarations
+	TOpenPictureDialog *OpenPictureDialog1;
+	TSavePictureDialog *SavePictureDialog1;
+	void __fastcall OpenExecute(TObject *Sender);
+	void __fastcall FileListBox1Click(TObject *Sender);
+	void __fastcall SaveExecute(TObject *Sender);
+private:	TJPEGImage *JPEGImage1;
+
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
 };
