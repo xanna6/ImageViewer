@@ -56,8 +56,7 @@ void __fastcall TForm1::FormMouseWheel(TObject *Sender, TShiftState Shift, int W
 	//StatusBar1->Panels->Items[1]->Text = "ImgPos x: " + IntToStr((int) Image1->Left) + " y: " + IntToStr((int) Image1->Top);
 	//StatusBar1->Panels->Items[2]->Text = "MousePos x: " + IntToStr((int) MousePosImg.x) + " y: " + IntToStr((int) MousePosImg.y);
 
-    double skok;
-	skok= 1.1; //zak³adamy wartoœæ skoku przy zoomowaniu
+	double skok = 1.1; //zak³adamy wartoœæ skoku przy zoomowaniu
 	/*zmienna WheelDelta przyjmuje wartoœci dodatnie lub ujemne w zale¿noœci
 	od kierunku obrotu kó³ka myszy. Za³ó¿my, ¿e rozmiar bêdzie zmniejszany lub
 	zwiêkszany o sta³y wspó³czynnik skok = 1,1*/
@@ -67,7 +66,7 @@ void __fastcall TForm1::FormMouseWheel(TObject *Sender, TShiftState Shift, int W
 		zoom = zoom*skok;
 	}
 
-	SkalujIPrzerysuj(JPEGImage1, zoom, imgTopLeft);
+	SkalujIPrzerysuj(Image1, JPEGImage1, zoom, imgTopLeft);
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
@@ -78,7 +77,7 @@ void __fastcall TForm1::Image1MouseDown(TObject *Sender, TMouseButton Button, TS
 }
 //---------------------------------------------------------------------------
 void __fastcall TForm1::Image1MouseMove(TObject *Sender, TShiftState Shift, int X,
-          int Y)
+		  int Y)
 {
 	//rysujemy tylko je¿eli wciœniety jest lewy przycisk myszy
 	if ( Shift.Contains(ssLeft))
@@ -95,9 +94,9 @@ void __fastcall TForm1::Image1MouseMove(TObject *Sender, TShiftState Shift, int 
 	}
 	if ( Shift.Contains(ssRight)) {
 		imgTopLeft.x = imgTopLeft.x + X - mousePos.x;
-		imgTopLeft.y = imgTopLeft.y + Y – mousePos.y;
+		imgTopLeft.y = imgTopLeft.y + Y - mousePos.y;
 
-		SkalujIPrzerysuj(JPEGImage1, zoom, imgTopLeft);
+		SkalujIPrzerysuj(Image1, JPEGImage1, zoom, imgTopLeft);
 
 		mousePos.x = X;
 		mousePos.y = Y;
@@ -107,9 +106,24 @@ void __fastcall TForm1::Image1MouseMove(TObject *Sender, TShiftState Shift, int 
 void __fastcall TForm1::Image1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y)
 {
-	if(X >= mousePos.x && Y >= mousePos.y) {
-	   Image1->SetBounds(lastRect.Left, lastRect.Top, lastRect.Right, lastRect.Bottom);
+	if(Button == mbLeft && (X >= mousePos.x && Y >= mousePos.y)) {
 	   Image1->Canvas->CopyRect(Image1->ClientRect, Image1->Canvas, lastRect);
 	}
 }
 //---------------------------------------------------------------------------
+
+void TForm1::SkalujIPrzerysuj(TImage *Image1, TJPEGImage *JPEGImage1, double zoom, TPoint &imgTopLeft) {
+	TBitmap *Bitmap1;
+	Bitmap1 = new TBitmap();
+	Bitmap1->Assign(JPEGImage1);
+
+	Bitmap1->Width = int(JPEGImage1->Width * zoom);
+	Bitmap1->Height = int(JPEGImage1->Height * zoom);
+
+	Image1->Canvas->Brush->Color = clAppWorkSpace;
+	Image1->Canvas->FillRect(Rect(0,0,Image1->Width,Image1->Height));
+	Image1->Canvas->StretchDraw(Rect(imgTopLeft.x, imgTopLeft.y,
+								 Bitmap1->Width + imgTopLeft.x, Bitmap1->Height + imgTopLeft.y), JPEGImage1);
+
+	delete Bitmap1;
+}

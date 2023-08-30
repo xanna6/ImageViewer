@@ -101,7 +101,7 @@ private:	TJPEGImage *JPEGImage1;
 
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
-	void SkalujIPrzerysuj(TJPEGImage JPEGImage, double zoom, TPoint imgTopLeft);
+	void SkalujIPrzerysuj(TImage *Image, TJPEGImage *JPEGImage, double zoom, TPoint &imgTopLeft);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
