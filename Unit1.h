@@ -102,6 +102,7 @@ private:	TJPEGImage *JPEGImage1;
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
 	void SkalujIPrzerysuj(TImage *Image, TJPEGImage *JPEGImage, double zoom, TPoint &imgTopLeft);
+	void ObliczPozycje(TPoint &AimgTopLeft, TPoint mousePos, double zoomBef, double zoomAft);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;

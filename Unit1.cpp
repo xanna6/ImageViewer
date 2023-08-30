@@ -52,20 +52,23 @@ void __fastcall TForm1::FormMouseWheel(TObject *Sender, TShiftState Shift, int W
 //	StatusBar1->Panels->Items[0]->Text = "x: " + IntToStr((int)MousePosImg.x);
 //	StatusBar1->Panels->Items[1]->Text = "y: " + IntToStr((int)MousePosImg.y);
 //	StatusBar1->Panels->Items[2]->Text = "delta: " + IntToStr(WheelDelta);
-	//StatusBar1->Panels->Items[0]->Text = "MousePos x: " + IntToStr((int) MousePos.x) + " y: " + IntToStr((int) MousePos.y);
-	//StatusBar1->Panels->Items[1]->Text = "ImgPos x: " + IntToStr((int) Image1->Left) + " y: " + IntToStr((int) Image1->Top);
-	//StatusBar1->Panels->Items[2]->Text = "MousePos x: " + IntToStr((int) MousePosImg.x) + " y: " + IntToStr((int) MousePosImg.y);
+
+//	StatusBar1->Panels->Items[0]->Text = "MousePos x: " + IntToStr((int) MousePos.x) + " y: " + IntToStr((int) MousePos.y);
+//	StatusBar1->Panels->Items[1]->Text = "ImgPos x: " + IntToStr((int) Image1->Left) + " y: " + IntToStr((int) Image1->Top);
+//	StatusBar1->Panels->Items[2]->Text = "MousePos x: " + IntToStr((int) MousePosImg.x) + " y: " + IntToStr((int) MousePosImg.y);
 
 	double skok = 1.1; //zak³adamy wartoœæ skoku przy zoomowaniu
 	/*zmienna WheelDelta przyjmuje wartoœci dodatnie lub ujemne w zale¿noœci
 	od kierunku obrotu kó³ka myszy. Za³ó¿my, ¿e rozmiar bêdzie zmniejszany lub
 	zwiêkszany o sta³y wspó³czynnik skok = 1,1*/
+	double zoomBefore = zoom;
 	if (WheelDelta<0) {
 		zoom = zoom/skok;
 	} else {
 		zoom = zoom*skok;
 	}
 
+	ObliczPozycje(imgTopLeft, MousePosImg, zoomBefore, zoom);
 	SkalujIPrzerysuj(Image1, JPEGImage1, zoom, imgTopLeft);
 }
 //---------------------------------------------------------------------------
@@ -126,4 +129,11 @@ void TForm1::SkalujIPrzerysuj(TImage *Image1, TJPEGImage *JPEGImage1, double zoo
 								 Bitmap1->Width + imgTopLeft.x, Bitmap1->Height + imgTopLeft.y), JPEGImage1);
 
 	delete Bitmap1;
+}
+
+void TForm1::ObliczPozycje(TPoint &imgTopLeft, TPoint mousePos, double zoomBef, double zoomAft) {
+    /*zmienna zoomBef oznacza poprzedni¹ wartoœæ skali, a zmienna zoomAft
+	now¹ wartoœæ skali po ruchu kó³ka myszki */
+	imgTopLeft.x = int ((imgTopLeft.x - mousePos.x)*zoomAft/zoomBef + mousePos.x);
+	imgTopLeft.y = int ((imgTopLeft.y - mousePos.y)*zoomAft/zoomBef + mousePos.y);
 }
