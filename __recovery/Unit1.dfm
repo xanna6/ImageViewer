@@ -22,8 +22,8 @@ object Form1: TForm1
       item
         Width = 50
       end>
-    ExplicitLeft = 8
-    ExplicitTop = 413
+    ExplicitTop = 420
+    ExplicitWidth = 764
   end
   object ToolBar1: TToolBar
     Left = 0
@@ -35,6 +35,7 @@ object Form1: TForm1
     Caption = 'ToolBar1'
     Images = ImageList1
     TabOrder = 1
+    ExplicitWidth = 764
     object NewToolButton: TToolButton
       Left = 0
       Top = 0
@@ -107,8 +108,7 @@ object Form1: TForm1
     Height = 386
     Align = alLeft
     TabOrder = 2
-    ExplicitTop = 29
-    ExplicitHeight = 392
+    ExplicitHeight = 385
     object DirectoryListBox1: TDirectoryListBox
       Left = 8
       Top = 33
@@ -133,9 +133,7 @@ object Form1: TForm1
     Height = 386
     Align = alLeft
     TabOrder = 3
-    ExplicitLeft = 175
-    ExplicitTop = 40
-    ExplicitHeight = 392
+    ExplicitHeight = 385
     object FilterComboBox1: TFilterComboBox
       Left = 10
       Top = 6
@@ -166,10 +164,8 @@ object Form1: TForm1
     Color = clAppWorkSpace
     ParentBackground = False
     TabOrder = 4
-    ExplicitLeft = 424
-    ExplicitTop = 23
-    ExplicitWidth = 343
-    ExplicitHeight = 346
+    ExplicitWidth = 435
+    ExplicitHeight = 385
     object Image1: TImage
       Left = 1
       Top = 1

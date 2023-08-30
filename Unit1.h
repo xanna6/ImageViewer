@@ -86,6 +86,9 @@ __published:	// IDE-managed Components
 	void __fastcall Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
 	void __fastcall Image1MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
+	void __fastcall Image1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+		  int X, int Y);
+
 
 
 
@@ -93,9 +96,12 @@ __published:	// IDE-managed Components
 private:	TJPEGImage *JPEGImage1;
 			TRect lastRect; //ostatnio narysowany prostok¹t
 			TPoint mousePos; //pozycja kursora po wciœniêciu lewego przycisku
+			TPoint imgTopLeft; //pozycja lewego górnego rogu obrazka
+			double zoom; //
 
 public:		// User declarations
 	__fastcall TForm1(TComponent* Owner);
+	void SkalujIPrzerysuj(TJPEGImage JPEGImage, double zoom, TPoint imgTopLeft);
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;
