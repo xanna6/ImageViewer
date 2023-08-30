@@ -88,6 +88,8 @@ __published:	// IDE-managed Components
 	void __fastcall Image1MouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
 	void __fastcall Image1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
 		  int X, int Y);
+	void __fastcall RotateLeftExecute(TObject *Sender);
+	void __fastcall RotateRightExecute(TObject *Sender);
 
 
 

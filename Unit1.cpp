@@ -115,7 +115,6 @@ void __fastcall TForm1::Image1MouseUp(TObject *Sender, TMouseButton Button, TShi
 	}
 }
 //---------------------------------------------------------------------------
-
 void TForm1::SkalujIPrzerysuj(TImage *Image1, TJPEGImage *JPEGImage1, double zoom, TPoint &imgTopLeft) {
 	TBitmap *Bitmap1;
 	Bitmap1 = new TBitmap();
@@ -131,10 +130,86 @@ void TForm1::SkalujIPrzerysuj(TImage *Image1, TJPEGImage *JPEGImage1, double zoo
 
 	delete Bitmap1;
 }
-
+//---------------------------------------------------------------------------
 void TForm1::ObliczPozycje(TPoint &imgTopLeft, TPoint mousePos, double zoomBef, double zoomAft) {
     /*zmienna zoomBef oznacza poprzedni¹ wartoœæ skali, a zmienna zoomAft
 	now¹ wartoœæ skali po ruchu kó³ka myszki */
 	imgTopLeft.x = int ((imgTopLeft.x - mousePos.x)*zoomAft/zoomBef + mousePos.x);
 	imgTopLeft.y = int ((imgTopLeft.y - mousePos.y)*zoomAft/zoomBef + mousePos.y);
 }
+//---------------------------------------------------------------------------
+void __fastcall TForm1::RotateLeftExecute(TObject *Sender)
+{
+	//definiujemy nowy typ, który bêdzie trójelementow¹ tablic¹ bajtów
+	typedef Byte TByteTriple[3];
+	TByteTriple *PixelNew, *PixelOld;
+	TBitmap *Bitmap1, *Bitmap2;
+	Bitmap1 = new TBitmap();
+	Bitmap2 = new TBitmap();
+
+	Bitmap1->Assign(JPEGImage1);
+	Bitmap2->Width =Bitmap1->Height;
+	Bitmap2->Height =Bitmap1->Width;
+
+	//koniecznie musimy ustawiæ rozmiar piksela na 24 bity czyli 3 bajty
+	Bitmap1->PixelFormat=pf24bit;
+	Bitmap2->PixelFormat=pf24bit;
+	for(int j=0; j<Bitmap2->Height; j++) {
+		//pobieramy wskaŸnik do pierwszego piksela j-tej lini nowego obrazu
+		PixelNew = (TByteTriple *) Bitmap2->ScanLine[j];
+		for(int i=0; i<Bitmap1->Height; i++) {
+			//pobieramy wskaŸnik do pierwszego piksela i-tej lini starego obrazu
+			PixelOld= (TByteTriple *)Bitmap1->ScanLine[i];
+			//przepisujemy zawartoœæ 3 bajtów pamiêci, ze starego obrazu do nowego
+			PixelNew[i][0] = PixelOld[Bitmap1->Width-j-1][0];
+			PixelNew[i][1] = PixelOld[Bitmap1->Width-j-1][1];
+			PixelNew[i][2] = PixelOld[Bitmap1->Width-j-1][2];
+		}
+	}
+	JPEGImage1->Assign(Bitmap2);
+
+	//rysowanie odwróconego obrazu
+	SkalujIPrzerysuj(Image1, JPEGImage1, zoom, imgTopLeft);
+
+	delete(Bitmap1);
+	delete(Bitmap2);
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::RotateRightExecute(TObject *Sender)
+{
+	//definiujemy nowy typ, który bêdzie trójelementow¹ tablic¹ bajtów
+	typedef Byte TByteTriple[3];
+	TByteTriple *PixelNew, *PixelOld;
+	TBitmap *Bitmap1, *Bitmap2;
+	Bitmap1 = new TBitmap();
+	Bitmap2 = new TBitmap();
+
+	Bitmap1->Assign(JPEGImage1);
+	Bitmap2->Width =Bitmap1->Height;
+	Bitmap2->Height =Bitmap1->Width;
+
+	//koniecznie musimy ustawiæ rozmiar piksela na 24 bity czyli 3 bajty
+	Bitmap1->PixelFormat=pf24bit;
+	Bitmap2->PixelFormat=pf24bit;
+	for(int j=0; j<Bitmap2->Height; j++) {
+		//pobieramy wskaŸnik do pierwszego piksela j-tej lini nowego obrazu
+		PixelNew = (TByteTriple *) Bitmap2->ScanLine[j];
+		for(int i=0; i<Bitmap1->Height; i++) {
+			//pobieramy wskaŸnik do pierwszego piksela i-tej lini starego obrazu
+			PixelOld= (TByteTriple *)Bitmap1->ScanLine[i];
+			//przepisujemy zawartoœæ 3 bajtów pamiêci, ze starego obrazu do nowego
+			PixelNew[Bitmap2->Width-i-1][0] = PixelOld[j][0];
+			PixelNew[Bitmap2->Width-i-1][1] = PixelOld[j][1];
+			PixelNew[Bitmap2->Width-i-1][2] = PixelOld[j][2];
+		}
+	}
+	JPEGImage1->Assign(Bitmap2);
+
+	//rysowanie odwróconego obrazu
+	SkalujIPrzerysuj(Image1, JPEGImage1, zoom, imgTopLeft);
+
+    delete(Bitmap1);
+	delete(Bitmap2);
+}
+//---------------------------------------------------------------------------
+
