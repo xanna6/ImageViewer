@@ -31,6 +31,7 @@
 #include <Jpeg.hpp>
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.ExtDlgs.hpp>
+#include <Unit2.h>
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -78,6 +79,7 @@ __published:	// IDE-managed Components
 	TMenuItem *Cut1;
 	TOpenPictureDialog *OpenPictureDialog1;
 	TSavePictureDialog *SavePictureDialog1;
+	TAction *Maximize;
 	void __fastcall OpenExecute(TObject *Sender);
 	void __fastcall FileListBox1Click(TObject *Sender);
 	void __fastcall SaveExecute(TObject *Sender);
@@ -90,6 +92,7 @@ __published:	// IDE-managed Components
 		  int X, int Y);
 	void __fastcall RotateLeftExecute(TObject *Sender);
 	void __fastcall RotateRightExecute(TObject *Sender);
+	void __fastcall MaximizeExecute(TObject *Sender);
 
 
 

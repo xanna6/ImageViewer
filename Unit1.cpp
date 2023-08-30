@@ -213,3 +213,17 @@ void __fastcall TForm1::RotateRightExecute(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TForm1::MaximizeExecute(TObject *Sender)
+{
+	TFullScreen *fform;
+	fform = new TFullScreen(this);
+
+	//wyœwietlenie zdjêcia w obiekcie Image1 formy FullScreen
+	fform->Image1->Picture->Assign(JPEGImage1);
+	/*pokazujemy formê Form2.ShowModal oznacza, ¿e forma Form1 nie jest
+	aktywna tak d³ugo jak otwarta jest forma Form2*/
+	fform->ShowModal();
+	delete(fform);
+}
+//---------------------------------------------------------------------------
+
