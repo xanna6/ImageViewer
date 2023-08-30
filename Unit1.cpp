@@ -49,13 +49,9 @@ void __fastcall TForm1::FormMouseWheel(TObject *Sender, TShiftState Shift, int W
 		  TPoint &MousePos, bool &Handled)
 {
 	TPoint MousePosImg = Image1->ScreenToClient(MousePos);
-//	StatusBar1->Panels->Items[0]->Text = "x: " + IntToStr((int)MousePosImg.x);
-//	StatusBar1->Panels->Items[1]->Text = "y: " + IntToStr((int)MousePosImg.y);
-//	StatusBar1->Panels->Items[2]->Text = "delta: " + IntToStr(WheelDelta);
-
-//	StatusBar1->Panels->Items[0]->Text = "MousePos x: " + IntToStr((int) MousePos.x) + " y: " + IntToStr((int) MousePos.y);
-//	StatusBar1->Panels->Items[1]->Text = "ImgPos x: " + IntToStr((int) Image1->Left) + " y: " + IntToStr((int) Image1->Top);
-//	StatusBar1->Panels->Items[2]->Text = "MousePos x: " + IntToStr((int) MousePosImg.x) + " y: " + IntToStr((int) MousePosImg.y);
+	StatusBar1->Panels->Items[0]->Text = "MousePos x: " + IntToStr((int) MousePos.x) + " y: " + IntToStr((int) MousePos.y);
+	StatusBar1->Panels->Items[1]->Text = "ImgPos x: " + IntToStr((int) imgTopLeft.x) + " y: " + IntToStr((int) imgTopLeft.y);
+	StatusBar1->Panels->Items[2]->Text = "MousePosImg x: " + IntToStr((int) MousePosImg.x) + " y: " + IntToStr((int) MousePosImg.y);
 
 	double skok = 1.1; //zak³adamy wartoœæ skoku przy zoomowaniu
 	/*zmienna WheelDelta przyjmuje wartoœci dodatnie lub ujemne w zale¿noœci
@@ -82,6 +78,11 @@ void __fastcall TForm1::Image1MouseDown(TObject *Sender, TMouseButton Button, TS
 void __fastcall TForm1::Image1MouseMove(TObject *Sender, TShiftState Shift, int X,
 		  int Y)
 {
+	//zmiana wspolrzednych w statusBarze
+	StatusBar1->Panels->Items[0]->Text = "MousePos x: " + IntToStr((int) X) + " y: " + IntToStr((int) Y);
+	StatusBar1->Panels->Items[1]->Text = "ImgPos x: " + IntToStr((int) imgTopLeft.x) + " y: " + IntToStr((int) imgTopLeft.y);
+	StatusBar1->Panels->Items[2]->Text = "";
+
 	//rysujemy tylko je¿eli wciœniety jest lewy przycisk myszy
 	if ( Shift.Contains(ssLeft))
 	{
